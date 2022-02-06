@@ -58,7 +58,7 @@ const userSchema = mongoose.Schema({
   biography: String,
   status: {
     type: String,
-    default: 'wating',
+    default: 'waiting',
     enum: ['waiting', 'active', 'inactive'],
   },
 });

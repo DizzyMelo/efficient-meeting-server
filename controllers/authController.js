@@ -39,14 +39,16 @@ exports.signup = catchAsync(async (req, res, next) => {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     email: req.body.email,
-    cpf: req.body.cpf,
     phone: req.body.phone,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
     //passwordChangedAt: req.body.passwordChangedAt,
   });
 
-  const token = signToken(newUser._id);
+  console.log(newUser);
+  console.log(newUser.id);
+
+  const token = signToken(newUser.id);
 
   res.status(201).json({
     status: 'success',
