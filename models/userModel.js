@@ -7,20 +7,20 @@ const userSchema = mongoose.Schema({
   firstname: {
     type: String,
     trim: true,
-    required: [true, 'O primeiro nome é obrigatório'],
+    required: [true, 'The first name is required'],
   },
   lastname: {
     type: String,
     trim: true,
-    required: [true, 'O último nome é obrigatório'],
+    required: [true, 'The last name is required'],
   },
   email: {
     type: String,
     trim: true,
     lowercase: true,
     unique: true,
-    required: [true, 'O email é obrigatório'],
-    validate: [validator.isEmail, 'Formato de email inválido'],
+    required: [true, 'The email is required'],
+    validate: [validator.isEmail, 'Invalid format'],
   },
   photo: {
     type: String,
@@ -30,18 +30,7 @@ const userSchema = mongoose.Schema({
   phone: {
     type: String,
     trim: true,
-    required: [true, 'O telefone nome é obrigatório'],
-  },
-  cpf: {
-    type: String,
-    trim: true,
-    unique: true,
-    required: [true, 'O CPF é obrigatório'],
-  },
-  role: {
-    type: String,
-    enum: ['user', 'admin'],
-    default: 'user',
+    required: [true, 'The phone number is required'],
   },
   password: {
     type: String,
@@ -69,8 +58,8 @@ const userSchema = mongoose.Schema({
   biography: String,
   status: {
     type: String,
-    default: 'pendente',
-    enum: ['pendente', 'ativo', 'inativo'],
+    default: 'wating',
+    enum: ['waiting', 'active', 'inactive'],
   },
 });
 

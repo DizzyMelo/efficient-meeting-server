@@ -7,9 +7,21 @@ const taskSchema = mongoose.Schema({
     },
     description: {
         type: String
+    },
+    createdBy: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    },
+    assignedTo: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    },
+    deadLine: {
+        type: Date,
+        required: [true, 'The deadline is required']
     }
 });
 
-const Car = mongoose.model("Task", taskSchema);
+const Task = mongoose.model("Task", taskSchema);
 
-module.exports = Car;
+module.exports = Task;
