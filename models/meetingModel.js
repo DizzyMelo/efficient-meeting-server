@@ -19,8 +19,17 @@ const meetingSchema = mongoose.Schema({
     },
     duration: {
         type: Number,
-        require: [true, 'The duration (in minutes) is required']
+        required: [true, 'The duration (in minutes) is required']
     },
+    topics: [
+        {
+            name: {
+                type: String, 
+                required:[true, 'A description of the topic is required']
+            },
+            completed: {type: Boolean, default: false}
+        }
+    ],
     participants: [
         {
             type: mongoose.Schema.ObjectId, 
@@ -30,8 +39,10 @@ const meetingSchema = mongoose.Schema({
     status: {
         type: String,
         default: 'coming',
-        enum: ['coming', 'started', 'ended', 'canceled'],
+        enum: ['coming', 'started', 'in progress', 'ended', 'paused', 'canceled'],
     },
+    timeStarted: Date,
+    timeEnded: Date,
 });
 
 const Meeting = mongoose.model("Meeting", meetingSchema);

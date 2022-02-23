@@ -52,15 +52,19 @@ const userSchema = mongoose.Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
-  termsaccepted: {
+  termsAccepted: {
     type: Boolean,
+    default: false
   },
-  biography: String,
   status: {
     type: String,
     default: 'waiting',
     enum: ['waiting', 'active', 'inactive'],
   },
+  stars: {
+    type: Number,
+    default: 5
+  } 
 });
 
 userSchema.pre('save', async function (next) {
