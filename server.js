@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 const app = require('./app');
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 mongoose
   .connect("mongodb+srv://daniel-melo:Dado201094@cluster0.wtuon.mongodb.net/efficient-meeting?retryWrites=true&w=majority", {
