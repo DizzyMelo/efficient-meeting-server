@@ -89,11 +89,14 @@ exports.getAll = (Model, popOptions) =>
 
     collectionName = Model.collection.collectionName;
     docName = `${collectionName}`; 
-    // SEND RESPONSE
-    res.status(200).json({
+
+    responseObject = {
       status: 'success',
       requestedAt: req.requestTime,
       results: docs.length,
-      docName: docs,
-    });
+    }
+
+    responseObject[docName] = docs
+    // SEND RESPONSE
+    res.status(200).json(responseObject);
   });
