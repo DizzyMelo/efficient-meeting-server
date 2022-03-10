@@ -87,13 +87,13 @@ exports.getAll = (Model, popOptions) =>
       ? await features.query.populate(popOptions)
       : await features.query;
 
-    collectionName = Model.collection.collectionName
-
+    collectionName = Model.collection.collectionName;
+    docName = `${collectionName}`; 
     // SEND RESPONSE
     res.status(200).json({
       status: 'success',
       requestedAt: req.requestTime,
       results: docs.length,
-      "meetings": docs,
+      docName: docs,
     });
   });
