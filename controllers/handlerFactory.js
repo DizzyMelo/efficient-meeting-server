@@ -92,6 +92,6 @@ exports.getAll = (Model, popOptions) =>
       status: 'success',
       requestedAt: req.requestTime,
       results: docs.length,
-      data: docs,
+      'data': docs,
     });
   });
