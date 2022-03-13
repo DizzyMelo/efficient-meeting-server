@@ -32,9 +32,7 @@ exports.updateOne = (Model) =>
     res.status(200).json({
       status: 'success',
       message: 'Document updated',
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   });
 
@@ -46,9 +44,7 @@ exports.createOne = (Model, popOptions) =>
 
     res.status(201).json({
       status: 'success',
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   });
 
