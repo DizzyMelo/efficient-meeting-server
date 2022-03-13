@@ -65,9 +65,7 @@ exports.getOne = (Model, popOptions) =>
     }
     res.status(200).json({
       status: 'success',
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   });
 
