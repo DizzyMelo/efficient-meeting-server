@@ -3,7 +3,7 @@ const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
 
 exports.getMeetings = factory.getAll(Meeting);
-exports.getMeeting = factory.getOne(Meeting);
+exports.getMeeting = factory.getOne(Meeting, 'host');
 exports.createMeeting = factory.createOne(Meeting);
 exports.updateMeeting = factory.updateOne(Meeting);
 exports.deleteMeeting = factory.deleteOne(Meeting);
