@@ -11,6 +11,8 @@ router
   .get(meetingController.getMeetings)
   .post(meetingController.createMeeting);
 
+router.post('/add-participant/:meetingId/:participantId', meetingController.addParticipantToMeeting)
+
 router
   .route('/:id')
   .get(meetingController.getMeeting)
