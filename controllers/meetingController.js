@@ -5,7 +5,7 @@ const factory = require('./handlerFactory');
 const AppError = require('../utils/appError');
 
 exports.getMeetings = factory.getAll(Meeting);
-exports.getMeeting = factory.getOne(Meeting, 'host');
+exports.getMeeting = factory.getOne(Meeting, 'host participants');
 exports.createMeeting = factory.createOne(Meeting);
 exports.updateMeeting = factory.updateOne(Meeting);
 exports.deleteMeeting = factory.deleteOne(Meeting);
