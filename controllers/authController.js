@@ -62,7 +62,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
   if (!email || !password) {
     return next(
-      new AppError('Por favor, informe um email ou senha válidos', 400)
+      new AppError('Please, provide a valid email and password', 400)
     );
   }
 
