@@ -3,6 +3,7 @@ const factory = require('./handlerFactory');
 const AppError = require('../utils/appError');
 
 exports.createTask = async (req, res, next) => {
+    req.body.createdBy = req.user.id;
     let task = await Task.create(req.body);
     res.status(201).json({
         status: 'success',
