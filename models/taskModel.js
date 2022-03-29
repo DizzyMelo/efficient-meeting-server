@@ -19,6 +19,10 @@ const taskSchema = mongoose.Schema({
     deadLine: {
         type: Date,
         required: [true, 'The deadline is required']
+    },
+    completed: {
+        type: Boolean,
+        default: false
     }
 });
 
