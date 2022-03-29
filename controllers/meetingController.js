@@ -4,7 +4,16 @@ const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
 const AppError = require('../utils/appError');
 
-exports.getMeetings = factory.getAll(Meeting);
+exports.getMeetings = catchAsync(async (req, res, next) => {
+  const meetings = await Meeting.find({$or: [{host:req.user.id}, {participants: {$in: req.user.id}}]})
+
+  res.status(200).json({
+    status: 'success',
+    requestedAt: req.requestTime,
+    results: meetings.length,
+    meetings
+  });
+});
 exports.getMeeting = factory.getOne(Meeting, 'host participants');
 exports.createMeeting = factory.createOne(Meeting);
 exports.updateMeeting = factory.updateOne(Meeting);
