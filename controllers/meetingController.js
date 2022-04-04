@@ -110,7 +110,7 @@ exports.removeParticipantFromMeeting = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    message: 'Participant rempved from the meeting!',
+    message: 'Participant removed from the meeting!',
     meeting
   });
 });
