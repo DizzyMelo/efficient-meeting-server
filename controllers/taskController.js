@@ -25,3 +25,20 @@ exports.getTasks = catchAsync(async (req, res, next) => {
 exports.getTask = factory.getOne(Task)
 exports.updateTask = factory.updateOne(Task)
 exports.deleteTask = factory.deleteOne(Task)
+
+exports.updateTaskStatus = catchAsync(async (req, res, next) => {
+    const task = await Task.findByIdAndUpdate(req.params.taskId, req.body, {
+        new: true,
+        runValidators: true,
+    });
+    
+    if (!task) {
+      return next(new AppError('Task not found!', 404));
+    }
+    
+    res.status(200).json({
+      status: 'success',
+      message: 'Task status updated!',
+      task
+    });
+  });

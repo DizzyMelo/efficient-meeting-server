@@ -7,6 +7,7 @@ const router = express.Router();
 router.use(authController.protect);
 
 router.route('/').get(taskController.getTasks).post(taskController.createTask);
+router.post('/task-status/:taskId/', taskController.updateTaskStatus)
 
 router
   .route('/:id')
