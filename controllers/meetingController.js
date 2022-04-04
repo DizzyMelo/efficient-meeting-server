@@ -89,4 +89,21 @@ exports.addParticipantToMeeting = catchAsync(async (req, res, next) => {
     message: 'Participant added to the meeting!',
     meeting
   });
+});
+
+exports.addTopicToMeeting = catchAsync(async (req, res, next) => {
+  const tempMeeting = await Meeting.findById(req.params.meetingId)
+  
+  if (!tempMeeting) {
+    return next(new AppError('Meeting was found!', 404));
+  }
+
+  
+  const meeting = await Meeting.findByIdAndUpdate(req.params.meetingId, {$push: {topics: {name:req.body.topic}}}, {new: true});
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Topic added to the meeting!',
+    meeting
+  });
 })

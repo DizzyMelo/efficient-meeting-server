@@ -12,6 +12,7 @@ router
   .post(meetingController.createMeeting);
 
 router.post('/add-participant/:meetingId/:participantId', meetingController.addParticipantToMeeting)
+router.post('/add-topic/:meetingId/', meetingController.addTopicToMeeting)
 
 router
   .route('/:id')
