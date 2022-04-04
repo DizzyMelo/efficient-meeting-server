@@ -12,6 +12,7 @@ router
   .post(meetingController.createMeeting);
 
 router.post('/add-participant/:meetingId/:participantId', meetingController.addParticipantToMeeting)
+router.post('/remove-participant/:meetingId/:participantId', meetingController.removeParticipantFromMeeting)
 router.post('/add-topic/:meetingId/', meetingController.addTopicToMeeting)
 router.post('/remove-topic/:meetingId/:topicId', meetingController.removeTopicFromMeeting)
 router.post('/update-topic/:meetingId/:topicId', meetingController.updateTopicStatus)

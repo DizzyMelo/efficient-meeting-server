@@ -91,6 +91,30 @@ exports.addParticipantToMeeting = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.removeParticipantFromMeeting = catchAsync(async (req, res, next) => {
+  
+  const tempMeeting = await Meeting.findById(req.params.meetingId)
+  
+  if (!tempMeeting) {
+    return next(new AppError('Meeting was not found!', 404));
+  }
+
+  participantIndex = tempMeeting.participants.map((el) => el._id.toString()).indexOf(req.params.participantId);
+
+  tempParticipant = tempMeeting.participants[participantIndex]
+  if(!tempParticipant) {
+    return next(new AppError('Participant not found!', 400));
+  }
+
+  const meeting = await Meeting.findByIdAndUpdate(req.params.meetingId, {$pull: {participants: tempParticipant}}, {new: true});
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Participant rempved from the meeting!',
+    meeting
+  });
+});
+
 exports.addTopicToMeeting = catchAsync(async (req, res, next) => {
   const tempMeeting = await Meeting.findById(req.params.meetingId)
   
@@ -127,7 +151,7 @@ exports.removeTopicFromMeeting = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    message: 'Topic removed to the meeting!',
+    message: 'Topic removed from the meeting!',
     meeting
   });
 });
