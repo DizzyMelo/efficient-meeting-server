@@ -13,6 +13,7 @@ router
 
 router.post('/add-participant/:meetingId/:participantId', meetingController.addParticipantToMeeting)
 router.post('/add-topic/:meetingId/', meetingController.addTopicToMeeting)
+router.post('/remove-topic/:meetingId/:topicId', meetingController.removeTopicFromMeeting)
 
 router
   .route('/:id')

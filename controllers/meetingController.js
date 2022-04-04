@@ -73,7 +73,7 @@ exports.addParticipantToMeeting = catchAsync(async (req, res, next) => {
   const tempMeeting = await Meeting.findById(req.params.meetingId)
   
   if (!tempMeeting) {
-    return next(new AppError('Meeting was found!', 404));
+    return next(new AppError('Meeting was not found!', 404));
   }
 
   tempParticipants = tempMeeting.participants.map((el) => el._id.toString())
@@ -95,7 +95,7 @@ exports.addTopicToMeeting = catchAsync(async (req, res, next) => {
   const tempMeeting = await Meeting.findById(req.params.meetingId)
   
   if (!tempMeeting) {
-    return next(new AppError('Meeting was found!', 404));
+    return next(new AppError('Meeting was not found!', 404));
   }
 
   
@@ -106,4 +106,28 @@ exports.addTopicToMeeting = catchAsync(async (req, res, next) => {
     message: 'Topic added to the meeting!',
     meeting
   });
-})
+});
+
+exports.removeTopicFromMeeting = catchAsync(async (req, res, next) => {
+  const tempMeeting = await Meeting.findById(req.params.meetingId)
+  
+  if (!tempMeeting) {
+    return next(new AppError('Meeting was not found!', 404));
+  }
+
+  topicIndex = tempMeeting.topics.map(el => el._id.toString()).indexOf(req.params.topicId);
+  
+  tempTopic = tempMeeting.topics[topicIndex];
+
+  if(!tempTopic) {
+    return next(new AppError('Topic not found!', 404));
+  }
+
+  const meeting = await Meeting.findByIdAndUpdate(req.params.meetingId, {$pull: {topics: tempTopic}}, {new: true});
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Topic removed to the meeting!',
+    meeting
+  });
+});
