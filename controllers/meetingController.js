@@ -131,3 +131,29 @@ exports.removeTopicFromMeeting = catchAsync(async (req, res, next) => {
     meeting
   });
 });
+
+exports.updateTopicStatus = catchAsync(async (req, res, next) => {
+  const tempMeeting = await Meeting.findById(req.params.meetingId)
+  
+  if (!tempMeeting) {
+    return next(new AppError('Meeting was not found!', 404));
+  }
+
+  topicIndex = tempMeeting.topics.map(el => el._id.toString()).indexOf(req.params.topicId);
+  
+  tempTopic = tempMeeting.topics[topicIndex];
+
+  if(!tempTopic) {
+    return next(new AppError('Topic not found!', 404));
+  }
+
+  tempMeeting.topics[topicIndex].completed = req.body.completed;
+
+  const meeting = await Meeting.findByIdAndUpdate(req.params.meetingId, {topics: tempMeeting.topics}, {new: true});
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Topic status updated!',
+    meeting
+  });
+});
