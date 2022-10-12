@@ -35,7 +35,7 @@ exports.updateTaskStatus = catchAsync(async (req, res, next) => {
     if (!task) {
       return next(new AppError('Task not found!', 404));
     }
-    
+    console.log(task);
     res.status(200).json({
       status: 'success',
       message: 'Task status updated!',
