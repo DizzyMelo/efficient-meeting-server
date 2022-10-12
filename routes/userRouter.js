@@ -7,7 +7,7 @@ router.post('/login', authController.login);
 router.post('/signup', authController.signup);
 router.post('/search/:email', userController.search);
 
-router.route('/').get(userController.getUsers).post();
+router.route('/').get(userController.getUsers);
 
 router.route('/:id').get().patch().delete();
 
