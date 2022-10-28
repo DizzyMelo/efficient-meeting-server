@@ -16,6 +16,8 @@ router.post('/remove-participant/:meetingId/:participantId', meetingController.r
 router.post('/add-topic/:meetingId/', meetingController.addTopicToMeeting)
 router.post('/remove-topic/:meetingId/:topicId', meetingController.removeTopicFromMeeting)
 router.post('/update-topic/:meetingId/:topicId', meetingController.updateTopicStatus)
+router.post('/start/:meetingId', meetingController.startMeeting)
+router.post('/finish/:meetingId', meetingController.finishMeeting)
 
 router
   .route('/:id')

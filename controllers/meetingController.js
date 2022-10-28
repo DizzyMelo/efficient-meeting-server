@@ -181,3 +181,41 @@ exports.updateTopicStatus = catchAsync(async (req, res, next) => {
     meeting
   });
 });
+
+exports.startMeeting = catchAsync(async (req, res, next) => {
+  const meetingToUpdate = {
+    status: 'in progress',
+    startedAt: Date.now()
+  };
+
+  const meeting = await Meeting.findByIdAndUpdate(req.params.meetingId, meetingToUpdate, {new: true});
+  
+  if (!meeting) {
+    return next(new AppError('Meeting not found!', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Meeting started successfuly',
+    meeting
+  });
+});
+
+exports.finishMeeting = catchAsync(async (req, res, next) => {
+  const meetingToUpdate = {
+    status: 'ended',
+    finishedAt: Date.now()
+  };
+
+  const meeting = await Meeting.findByIdAndUpdate(req.params.meetingId, meetingToUpdate, {new: true});
+  
+  if (!meeting) {
+    return next(new AppError('Meeting not found!', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Meeting finished successfuly',
+    meeting
+  });
+});

@@ -21,6 +21,8 @@ const meetingSchema = mongoose.Schema({
         type: Number,
         required: [true, 'The duration (in minutes) is required']
     },
+    startedAt: Date,
+    finishedAt: Date,
     topics: [
         {
             name: {
