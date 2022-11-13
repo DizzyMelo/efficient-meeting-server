@@ -3,6 +3,8 @@ const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
 const AppError = require('../utils/appError');
+const notificationController = require('./notificationController')
+
 
 exports.getMeetings = catchAsync(async (req, res, next) => {
   const meetings = await Meeting.find({$or: [{host:req.user.id}, {participants: {$in: req.user.id}}]})
@@ -84,6 +86,13 @@ exports.addParticipantToMeeting = catchAsync(async (req, res, next) => {
 
   const meeting = await Meeting.findByIdAndUpdate(req.params.meetingId, {$push: {participants: participant}}, {new: true});
 
+  const notification = {
+    title: 'You were invited to a new meeting',
+    body: 'You were invited to a new meeting',
+    token: participant.token || 'chNd15wIR8emtOHMfv6rWt:APA91bFuuF7oufSkocjM1jftoC4-tms-_OilgTt1ajyHy_j2N-aqr19xqdwc4vxYUmUA3sgfVyLgA-GcCXAr9e_jNX1L4b5_Dv88UpJZUenZXvKJvsr7nyw0DVtphwOP3ffx0f93JB0V'
+  }
+
+  notificationController.createNotification(notification);
   res.status(200).json({
     status: 'success',
     message: 'Participant added to the meeting!',

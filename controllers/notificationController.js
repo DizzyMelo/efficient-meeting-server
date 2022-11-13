@@ -17,31 +17,23 @@ exports.getNotifications = catchAsync(async (req, res, next) => {
 });
 
 exports.getNotification = factory.getOne(Notification);
-// exports.createNotification = factory.createOne(Notification);
-exports.createNotification = catchAsync(async (req, res, next) => {
-  console.log(req.body);
-  sendNotification();
-  res.status(200).json({
-    status: "success",
-  });
+
+exports.createNotification = catchAsync(async (notification) => {
+  const x = {
+    title: "New Meeting",
+    message: "You were added to a meeting",
+    details: "this is the details",
+    sentTo: "61ff692e92ce42a0ee794446",
+  };
+  Notification.create(x);
+  sendNotification(notification, notification.token);
 });
 
-const sendNotification = () => {
+const sendNotification = (notification, token) => {
   var message = {
-    //this may vary according to the message type (single recipient, multicast, topic, et cetera)
-    to: "chNd15wIR8emtOHMfv6rWt:APA91bFuuF7oufSkocjM1jftoC4-tms-_OilgTt1ajyHy_j2N-aqr19xqdwc4vxYUmUA3sgfVyLgA-GcCXAr9e_jNX1L4b5_Dv88UpJZUenZXvKJvsr7nyw0DVtphwOP3ffx0f93JB0V",
-    // collapse_key: "your_collapse_key",
-
-    notification: {
-      title: "Title of your push notification",
-      body: "Body of your push notification",
-    },
-
-    data: {
-      //you can send only notification or only data(or include both)
-      my_key: "my value",
-      my_another_key: "my another value",
-    },
+    to: token,
+    notification: notification,
+    data: {},
   };
 
   fcm.send(message, function (err, response) {
