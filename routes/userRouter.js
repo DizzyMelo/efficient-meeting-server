@@ -9,6 +9,6 @@ router.post('/search/:email', userController.search);
 
 router.route('/').get(userController.getUsers);
 
-router.route('/:id').get().patch().delete();
+router.route('/:id').get(userController.getUser).patch(userController.updateUser).delete();
 
 module.exports = router;

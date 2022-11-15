@@ -15,3 +15,6 @@ exports.search = catchAsync(async (req, res, next) => {
         users: docs,
     });
 });
+
+exports.getUser = factory.getOne(User);
+exports.updateUser = factory.updateOne(User);
