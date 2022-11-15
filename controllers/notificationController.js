@@ -8,7 +8,7 @@ const serverKey =
 const fcm = new FCM(serverKey);
 
 exports.getNotifications = catchAsync(async (req, res, next) => {
-  const notifications = await Notification.find({ sentTo: req.user.id });
+  const notifications = await Notification.find({ sentTo: req.params.id });
 
   res.status(200).json({
     status: "success",
@@ -23,7 +23,7 @@ exports.createNotification = catchAsync(async (notification) => {
     title: "New Meeting",
     message: "You were added to a meeting",
     details: "this is the details",
-    sentTo: "61ff692e92ce42a0ee794446",
+    sentTo: notification.to,
   };
   Notification.create(x);
   sendNotification(notification, notification.token);

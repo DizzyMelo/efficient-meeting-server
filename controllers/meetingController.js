@@ -89,7 +89,8 @@ exports.addParticipantToMeeting = catchAsync(async (req, res, next) => {
   const notification = {
     title: 'You were invited to a new meeting',
     body: 'You were invited to a new meeting',
-    token: participant.token || 'chNd15wIR8emtOHMfv6rWt:APA91bFuuF7oufSkocjM1jftoC4-tms-_OilgTt1ajyHy_j2N-aqr19xqdwc4vxYUmUA3sgfVyLgA-GcCXAr9e_jNX1L4b5_Dv88UpJZUenZXvKJvsr7nyw0DVtphwOP3ffx0f93JB0V'
+    token: participant.token || 'no token',
+    to: participant._id
   }
 
   notificationController.createNotification(notification);

@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.use(authController.protect)
 
-router.route('/').get(notificationController.getNotifications).post(notificationController.createNotification);
+router.route('/').get().post(notificationController.createNotification);
 
-router.route('/:id').get().patch().delete();
+router.route('/:id').get(notificationController.getNotifications).patch().delete();
 
 module.exports = router;
