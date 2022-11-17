@@ -20,11 +20,14 @@ exports.getNotification = factory.getOne(Notification);
 
 exports.createNotification = catchAsync(async (notification) => {
   const x = {
-    title: "New Meeting",
-    message: "You were added to a meeting",
-    details: "this is the details",
+    title: notification.title,
+    message: notification.body,
+    details: "no details",
     sentTo: notification.to,
   };
+
+  console.log(x);
+  console.log(notification);
   Notification.create(x);
   sendNotification(notification, notification.token);
 });
@@ -38,7 +41,7 @@ const sendNotification = (notification, token) => {
 
   fcm.send(message, function (err, response) {
     if (err) {
-      console.log("Something has gone wrong!");
+      console.log('Something went wrong trying to send push notitication');
     } else {
       console.log("Successfully sent with response: ", response);
     }
