@@ -26,13 +26,25 @@ exports.createNotification = catchAsync(async (notification) => {
     sentTo: notification.to,
   };
 
-  console.log(x);
-  console.log(notification);
   Notification.create(x);
-  sendNotification(notification, notification.token);
+  sendNotificationToOne(notification, notification.token);
 });
 
-const sendNotification = (notification, token) => {
+exports.createManyNotifications = catchAsync(async (notification, participantIds, tokens) => {
+  participantIds.forEach(id => {
+    const n = {
+      title: notification.title,
+      message: notification.body,
+      details: "no details",
+      sentTo: id,
+    };
+    Notification.create(n);  
+  });
+  
+  sendNotificationToMany(notification, tokens);
+});
+
+const sendNotificationToOne = (notification, token) => {
   var message = {
     to: token,
     notification: notification,
@@ -47,5 +59,22 @@ const sendNotification = (notification, token) => {
     }
   });
 };
+
+const sendNotificationToMany = (notification, tokens) => {
+  var message = {
+    registration_ids: tokens,
+    notification: notification,
+    data: {},
+  };
+
+  fcm.send(message, function (err, response) {
+    if (err) {
+      console.log('Something went wrong trying to send push notitication');
+    } else {
+      console.log("Successfully sent with response: ", response);
+    }
+  });
+};
+
 exports.updateNotification = factory.updateOne(Notification);
 exports.deleteNotification = factory.deleteOne(Notification);

@@ -217,12 +217,26 @@ exports.finishMeeting = catchAsync(async (req, res, next) => {
     finishedAt: Date.now()
   };
 
-  const meeting = await Meeting.findByIdAndUpdate(req.params.meetingId, meetingToUpdate, {new: true});
+  const meeting = await Meeting.findByIdAndUpdate(req.params.meetingId, meetingToUpdate, {new: true}).populate('participants');
   
   if (!meeting) {
     return next(new AppError('Meeting not found!', 404));
   }
 
+  console.log(meeting)
+
+  participantIds = meeting.participants.map(participant => participant._id.toString());
+  participantTokens = meeting.participants.map(participant => participant.token.toString());
+  console.log(participantIds)
+  console.log(participantTokens)
+
+  const notification = {
+    title: 'Your opinion is important',
+    body: 'Please, take a few seconds to leave a review',
+  }
+
+  notificationController.createManyNotifications(notification, participantIds, participantTokens)
+  
   res.status(200).json({
     status: 'success',
     message: 'Meeting finished successfuly',
