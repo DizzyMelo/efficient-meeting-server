@@ -37,6 +37,8 @@ exports.createManyNotifications = catchAsync(async (notification, participantIds
       message: notification.body,
       details: "no details",
       sentTo: id,
+      optionalId: notification.optionalId,
+      notificationType: notification.notificationType
     };
     Notification.create(n);  
   });

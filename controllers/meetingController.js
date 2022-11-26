@@ -227,12 +227,12 @@ exports.finishMeeting = catchAsync(async (req, res, next) => {
 
   participantIds = meeting.participants.map(participant => participant._id.toString());
   participantTokens = meeting.participants.map(participant => participant.token.toString());
-  console.log(participantIds)
-  console.log(participantTokens)
 
   const notification = {
     title: 'Your opinion is important',
     body: 'Please, take a few seconds to leave a review',
+    optionalId: req.params.meetingId,
+    notificationType: 'review'
   }
 
   notificationController.createManyNotifications(notification, participantIds, participantTokens)

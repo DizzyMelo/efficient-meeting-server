@@ -28,7 +28,15 @@ const notificationSchema = mongoose.Schema({
     wasRead: {
         type: Boolean,
         default: false
-    }
+    },
+    notificationType: {
+        type: String,
+        default: 'normal',
+        enum: ['normal', 'new-meeting', 'new-task', 'review'],
+    },
+    optionalId: {
+        type: mongoose.Schema.ObjectId
+    },
 });
 
 const Notification = mongoose.model("Notification", notificationSchema);
