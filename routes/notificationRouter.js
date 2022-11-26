@@ -8,6 +8,9 @@ router.use(authController.protect)
 
 router.route('/').get().post(notificationController.createNotification);
 
-router.route('/:id').get(notificationController.getNotifications).patch().delete();
+router.route('/:id')
+.get(notificationController.getNotifications)
+.patch(notificationController.updateNotification)
+.delete(notificationController.deleteNotification);
 
 module.exports = router;
