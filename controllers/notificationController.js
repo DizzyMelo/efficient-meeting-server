@@ -18,6 +18,14 @@ exports.getNotifications = catchAsync(async (req, res, next) => {
 
 exports.getNotification = factory.getOne(Notification);
 
+exports.countNumberOfUnreadNotifications = catchAsync(async (req, res, next) => {
+  const notifications = await Notification.find({ sentTo: req.params.id, wasRead: false });
+
+  res.status(200).json({
+    count: notifications.length,
+  });
+});
+
 exports.createNotification = catchAsync(async (notification) => {
   const x = {
     title: notification.title,

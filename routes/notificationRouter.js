@@ -7,6 +7,8 @@ const router = express.Router();
 router.use(authController.protect)
 
 router.route('/').get().post(notificationController.createNotification);
+router.route('/:id/unread').get(notificationController.countNumberOfUnreadNotifications);
+
 
 router.route('/:id')
 .get(notificationController.getNotifications)
