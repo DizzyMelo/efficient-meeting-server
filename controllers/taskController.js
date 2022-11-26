@@ -17,7 +17,8 @@ exports.createTask = async (req, res, next) => {
             title: req.body.title,
             body: req.body.description,
             token: assignee.token || 'no token',
-            to: assigneeId
+            to: assigneeId,
+            notificationType: 'new-task'
         }
         notificationController.createNotification(notification);    
     }

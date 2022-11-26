@@ -90,7 +90,8 @@ exports.addParticipantToMeeting = catchAsync(async (req, res, next) => {
     title: 'You were invited to a new meeting',
     body: 'You were invited to a new meeting',
     token: participant.token || 'no token',
-    to: participant._id
+    to: participant._id,
+    notificationType: 'new-meeting'
   }
 
   notificationController.createNotification(notification);

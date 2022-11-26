@@ -24,6 +24,7 @@ exports.createNotification = catchAsync(async (notification) => {
     message: notification.body,
     details: "no details",
     sentTo: notification.to,
+    notificationType: notification.notificationType || 'normal'
   };
 
   Notification.create(x);
@@ -38,7 +39,7 @@ exports.createManyNotifications = catchAsync(async (notification, participantIds
       details: "no details",
       sentTo: id,
       optionalId: notification.optionalId,
-      notificationType: notification.notificationType
+      notificationType: notification.notificationType || 'normal'
     };
     Notification.create(n);  
   });
