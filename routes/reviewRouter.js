@@ -8,4 +8,6 @@ const router = express.Router();
 
 router.route('/').get(reviewController.getAllReviews).post(reviewController.createReview);
 
+router.route('/has-reviewed').post(reviewController.hasAlreadyReviewed);
+
 module.exports = router;

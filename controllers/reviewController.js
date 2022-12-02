@@ -40,3 +40,18 @@ exports.createReview = catchAsync(async (req, res, next) => {
         review
       });
 });
+
+exports.hasAlreadyReviewed = catchAsync(async (req, res, next) => {
+    const meetingId = req.body.meetingId;
+    const userId = req.body.userId;
+
+    const review = await Review.find({reviewedBy: userId, meetingId: meetingId});
+
+    hasReviewed = review.length > 0;
+
+    res.status(200).json({
+        status: 'success',
+        message: 'Review created successfully!',
+        hasReviewed
+    });
+})
