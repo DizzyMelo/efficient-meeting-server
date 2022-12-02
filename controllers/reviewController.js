@@ -50,8 +50,6 @@ exports.hasAlreadyReviewed = catchAsync(async (req, res, next) => {
     hasReviewed = review.length > 0;
 
     res.status(200).json({
-        status: 'success',
-        message: 'Review created successfully!',
         hasReviewed
     });
 })
